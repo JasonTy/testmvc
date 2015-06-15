@@ -1,0 +1,36 @@
+<table style="width:700px;border:1px solid black;  border-collapse: collapse;" id="show">
+    <tr>
+        <td style="width:700px;border:1px solid black;  border-collapse: collapse;">
+            名称
+        </td>
+        <td style="width:700px;border:1px solid black;  border-collapse: collapse;">
+            用户名称
+        </td>
+        <td style="width:700px;border:1px solid black;  border-collapse: collapse;">
+            说明
+        </td>
+        <td style="width:700px;border:1px solid black;  border-collapse: collapse;">
+            价格
+        </td>
+
+    </tr>
+    {{#list}}
+    <tr>
+        <td style="width:700px;border:1px solid black;  border-collapse: collapse;">
+            <!--<img style="width:80px;height:120px" src="{{image==''?'':image}}">-->
+            {{name}}
+        </td>
+        <td style="width:700px;border:1px solid black;  border-collapse: collapse;">
+            <!--<img style="width:80px;height:120px" src="{{image==''?'':image}}">-->
+            {{username}}
+        </td>
+        <td style="width:700px;border:1px solid black;  border-collapse: collapse;">
+            {{des}}
+        </td>
+        <td style="width:700px;border:1px solid black;  border-collapse: collapse;">
+            {{id}}
+        </td>
+
+    </tr>
+    {{/list}}
+</table>

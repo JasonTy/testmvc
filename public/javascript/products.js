@@ -2,6 +2,11 @@
  * Created by Jason on 2015/6/15.
  */
 $(function(){
+    //点击返回（新增）
+    $("#back").click(function(){
+        $("#addproduct").hide();
+        $("#editshow").hide();
+    });
     //新增
     $("#add").click(function(){
         $("#addproduct").show();

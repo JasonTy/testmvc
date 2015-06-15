@@ -1,3 +1,0 @@
-admin 2015-06-15 11:53:44 /product
-admin 2015-06-15 11:53:44 /javascript/jquery-1.10.2.min.js
-admin 2015-06-15 11:53:44 /javascript/products.js

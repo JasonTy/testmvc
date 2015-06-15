@@ -19,8 +19,9 @@ var app=express();
 var index=require('./routes/index.js');//引用index视图
 var login=require('./routes/login.js');//引用login视图
 var product=require('./routes/product.js')//引用product视图
+var workeight=require('./routes/workeight.js')//引用workeight联系Q视图
 
-var stream=fs.createWriteStream('./log.txt');
+var stream=fs.createWriteStream('../log.txt');
 
 app.set('views',path.join(__dirname,'views'));
 app.set('view engine','hjs');
@@ -52,6 +53,7 @@ app.use(express.static(path.join(__dirname,'public')));
 app.use('/',login);
 app.use('/index',index);
 app.use('/product',product);
+app.use('/workeight',workeight);
 //function(req,res,next){
 //    res.render('index.hjs',{title:'Express'});
 //}
