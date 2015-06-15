@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="/javascript/jquery-1.10.2.min.js"></script>
+</head>
+<body>
+{{#am}}早上好{{/am}}
+{{#at}}下午好{{/at}}
+{{#pm}}晚上好{{/pm}}
+,欢迎 <span style="color:red">{{name}}</span> 登录&nbsp;
+<a href="login?logout=123">退出</a>
+<br/>
+<hr/>
+<a href="#" id="add">添加</a>
+<br/>
+<hr/>
+<div id="addproduct" style="display: none">
+    <form method="post"  action="/product/add">
+        名称：<input type="text" name="name" style="margin-bottom: 4px">
+        <!--<br/>-->
+        <!--价格：<input type="text" name="price" style="margin-bottom: 4px">-->
+        <br/>
+        说明：<input type="text" name="content" style="margin-bottom: 4px">
+
+        <input type="submit" value="保存" id="btnAdd">
+    </form>
+</div>
+<table style="width:700px;border:1px solid black;  border-collapse: collapse;" id="show">
+    <tr>
+        <td style="width:700px;border:1px solid black;  border-collapse: collapse;">
+            名称
+        </td>
+        <td style="width:700px;border:1px solid black;  border-collapse: collapse;">
+            说明
+        </td>
+        <td style="width:700px;border:1px solid black;  border-collapse: collapse;">
+            价格
+        </td>
+        <td style="width:700px;border:1px solid black;  border-collapse: collapse;">
+            操作
+        </td>
+    </tr>
+    {{#list}}
+    <tr>
+        <td style="width:700px;border:1px solid black;  border-collapse: collapse;">
+            <!--<img style="width:80px;height:120px" src="{{image==''?'':image}}">-->
+            {{name}}
+        </td>
+        <td style="width:700px;border:1px solid black;  border-collapse: collapse;">
+            {{des}}
+        </td>
+        <td style="width:700px;border:1px solid black;  border-collapse: collapse;">
+            {{id}}
+        </td>
+        <td style="width:700px;border:1px solid black;  border-collapse: collapse;">
+            <input type="button"  class="edit" value="编辑" data-id="{{id}}" data-content="{{des}}"  data-price="{{id}}" data-name="{{name}}">
+            <input type="button"  class="delete" value="删除" data-id="{{id}}" data-name="{{id}}">
+        </td>
+    </tr>
+    {{/list}}
+</table>
+<div id="editshow" style="display: none">
+    <input type="hidden" name="id">
+    名称：<input type="text" name="names" style="margin-bottom: 4px"/>
+    <!--<br/>-->
+    <!--价格：<input type="text" name="prices" style="margin-bottom: 4px" disabled/>-->
+    <br/>
+    说明：<input type="text" name="shuoming" style="margin-bottom: 4px"/>
+    <br/>
+    <input type="button" value="保存" id="btnSave"/>
+    <input type="button" value="返回" id="btnBack"/>
+</div>
+</body>
+</html>
+<script>
+    $(function(){
+        //新增
+        $("#add").click(function(){
+            $("#addproduct").show();
+            $("#editshow").hide();
+        });
+        //点击编辑
+        $(".edit").click(function(){
+            var id=  $(this).attr("data-id");
+            var content=$(this).attr("data-content");
+            var price=$(this).attr("data-price");
+            var name=$(this).attr("data-name");
+            $("#show").hide();
+            $("#editshow").show();
+            $("#addproduct").hide();
+            $("#add").hide();
+            $("input[name='shuoming']").val(content);
+            $("input[name='names']").val(name);
+//            $("input[name='prices']").val(price);
+            $("input[name='id']").val(id);
+        });
+        //点击保存(编辑)
+        $("#btnSave").click(function(){
+            var id= $.trim( $("input[name='id']").val());
+            var content= $.trim( $("input[name='shuoming']").val());
+            var name= $.trim( $("input[name='names']").val());
+//            var price= $.trim( $("input[name='prices']").val());
+
+            $.ajax({
+                url:'/product/update',
+                type:'POST',
+                data:{id:id,content:content,name:name},//,price:price
+                dataType:"json",
+                success:function(result)
+                {
+                    if(result.isSuccess)
+                    {
+                        alert("编辑成功");
+                        location.reload();
+                    }
+                }
+            });
+        });
+        //点击返回
+        $("#btnBack").click(function(){
+            $("#show").show();
+            $("#add").show();
+            $("#editshow").hide();
+        });
+        //点击删除
+        $(".delete").click(function(){
+            if(confirm("确定要删除数据吗？"))
+            {
+                var id=  $(this).attr("data-id");
+                $.ajax({
+                    url:'/product/delete',
+                    type:'POST',
+                    data:{id:id},
+                    dataType:"json",
+                    success:function(result)
+                    {
+                        if(result.isSuccess)
+                        {
+                            alert("删除成功");
+                            location.reload();
+                        }
+                    }
+                });
+
+            }
+
+        });
+    });
+</script>
