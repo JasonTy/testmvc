@@ -10,8 +10,8 @@ var uuid=require('uuid');
 var fs=require('fs');
 
 //自定义模块（中间件）
-var verification=require('verification-login');//验证是否登录
-var create=require('create-log');//写入日志
+var verification=require('./verification-login');//验证是否登录
+var create=require('./create-log');//写入日志
 
 
 var app=express();
