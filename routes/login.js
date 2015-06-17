@@ -43,11 +43,13 @@ router.get('/login',function(req,res,next){
 router.post('/login',function(req,res,next){
 //1.从数据库中查找数据判断用户登录是否正确
 // 2.同时将用户信息存入session
-    sqlOperator.query('select name,password from [users]',function(err,recordest){
-        console.log("第二次登录");
-        if(recordest[0].name.trim()==req.body.name.toLocaleLowerCase().trim()&&recordest[0].password.trim()==req.body.password.toLocaleLowerCase().trim())
+    console.log("第二次登录");
+    sqlOperator.query('select name,password from [users]',function(err,recordset)
+    {
+        if(recordset[0].name.trim()==req.body.name.toLocaleLowerCase().trim()&&recordset[0].password.trim()==req.body.password.toLocaleLowerCase().trim())
         {
-            req.session.user=recordest[0].name.trim();
+            //console.log(recordset[0].name.trim());
+            req.session.user=recordset[0].name.trim();
             res.redirect('product');
         }
         else

@@ -17,7 +17,7 @@ module.exports=function(options)
             //    console.log("Export Account Success!");
             //
             //});
-            options.stream.writeFile((req.session.user||"") + " " + logtext);
+            options.stream.write((req.session.user||"") + " " + logtext);
         }
         next();
     };

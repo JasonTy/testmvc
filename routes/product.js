@@ -8,12 +8,20 @@ var router=express.Router();
 //第一次请求入口
 router.get('/',function(req,res,next){
     var $date=new Date().getHours();
-    sqlOperator.query('select *  from products',function(err,recordest){
-        //console.log(recordest);
-        res.render('product',{am:($date>=6&&$date<12),at:($date>=12&&$date<18),pm:(($date>=18)),name:req.session.user,list:recordest});
+    sqlOperator.query('select *  from products',function(err,recordset){
+
+        res.render('product', {
+            am: ($date >= 6 && $date < 12),
+            at: ($date >= 12 && $date < 18),
+            pm: (($date >= 18)),
+            name: req.session.user,
+            list: recordset
+        });
     });
 
+
 });
+
 //保存数据
 router.post('/add',function(req,res,next){
     var  str="insert into products(name,des,image) values('"+req.body.name+"','"+req.body.content+"','"+req.body.content+"')";
