@@ -39,9 +39,9 @@ gulp.task('Uglify image Files',function(){
 
 var path = {
     minscripts: ['./public/javascript/jquery-1.10.2.min.js'],
-    scripts: [ './public/javascript/products.js'],
+    scripts: [ './public/javascript/*'],
     styles: ['./public/style/*'],
-    images: './public/image/**',
+    images: './public/image/*',
     zip: ['**',
         '.gitignore',
         '!test.js','!test_new.js',
@@ -54,25 +54,15 @@ var path = {
         '!gulpfile.js']
 };
 //压缩文件
-gulp.task('zip',  function () {
-    return gulp.src(path.zip)
+gulp.task('zip',['Uglify js Files','Uglify css Files','Uglify image Files'], function () {
+     return gulp.src(path.zip)
         .pipe(zip('archive.zip'))
         .pipe(gulp.dest('zip'));
 });
 
-//,,'zip'
-gulp.task('default',['Uglify js Files','Uglify css Files','Uglify image Files','zip']);
+//依次执行
+gulp.task('default',['zip']);
 
 
 
-//gulp.task('Check JS GR',function(){
-//    gulp.src('./public/javascript/products.js')
-//        .pipe(jsHint())
-//        //.pipe(jsHint.reporter('default'))
-//
-//        .pipe(gulp.dest('./public/javascript/min/'))
-//        .pipe(rename({suffix: '.min'}));
-//
-//        //.pipe(uglify())
-//        //.pipe(gulp.dest('./public/javascript/min/'));
-//});
+
