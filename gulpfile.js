@@ -60,8 +60,8 @@ gulp.task('zip',  function () {
         .pipe(gulp.dest('zip'));
 });
 
-//Uglify js Files,'Uglify css Files','Uglify image Files',,'zip'
-gulp.task('default',['zip']);
+//,,'zip'
+gulp.task('default',['Uglify js Files','Uglify css Files','Uglify image Files','zip']);
 
 
 
